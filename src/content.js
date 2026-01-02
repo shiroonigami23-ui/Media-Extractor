@@ -7,19 +7,35 @@ const getSupremeTitle = () => {
 };
 
 const initExtractor = () => {
-    const safeTitle = getSupremeTitle();
-    chrome.storage.local.set({ supreme_page_title: safeTitle });
+    // Check settings at the top of the initialization
+    chrome.storage.sync.get(['enable_floater', 'enable_autoname'], (settings) => {
+        if (settings.enable_autoname) {
+            const safeTitle = getSupremeTitle();
+            chrome.storage.local.set({ supreme_page_title: safeTitle });
+        }
+        
+        if (settings.enable_floater) {
+            injectFloatingSniffer();
+        }
 
-    if (window.location.host.includes('youtube.com')) injectYTButtons();
-    if (window.location.host.includes('instagram.com')) extractInstagram();
-    injectFloatingSniffer();
+        // Module checks
+        if (window.location.host.includes('youtube.com')) {
+            injectYTButtons();
+        }
+        if (window.location.host.includes('instagram.com')) {
+            extractInstagram();
+        }
+    });
 };
 
 const extractInstagram = () => {
     const media = document.querySelectorAll('img[srcset], video:not([supreme-tagged])');
     media.forEach(el => {
         el.setAttribute('supreme-tagged', 'true');
-        el.onmouseenter = () => { el.style.border = "4px solid #ff3e00"; el.style.cursor = "zoom-in"; };
+        el.onmouseenter = () => { 
+            el.style.border = "4px solid #ff3e00"; 
+            el.style.cursor = "zoom-in"; 
+        };
         el.onmouseleave = () => el.style.border = "none";
         el.onclick = () => {
             const mediaUrl = el.src || el.currentSrc;
@@ -57,4 +73,5 @@ const injectFloatingSniffer = () => {
     document.body.appendChild(floater);
 };
 
+// Start the engine
 setInterval(initExtractor, 2000);

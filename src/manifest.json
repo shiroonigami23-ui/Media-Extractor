@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
   "name": "Media Extractor Supreme",
-  "version": "1.4",
-  "description": "Extract 4K video, audio, and galleries with Context Menu & HLS sniffing.",
+  "version": "1.5",
+  "description": "Full media suite with 4K extraction, HLS sniffer, and customizable settings.",
   "permissions": [
     "declarativeNetRequest",
     "storage",
@@ -11,6 +11,7 @@
     "downloads",
     "contextMenus"
   ],
+  "options_page": "options.html",
   "host_permissions": ["<all_urls>"],
   "background": {
     "service_worker": "background.js"
