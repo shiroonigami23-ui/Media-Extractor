@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="./icon/banner.png" alt="Media Extractor Supreme v1.5 Banner" width="100%">
+</p>
+
 # 🔱 Media Extractor Supreme
 ![Version](https://img.shields.io/badge/version-1.5-orange?style=for-the-badge)
 ![License](https://img.shields.io/badge/license-GPL--3.0-blue?style=for-the-badge)
