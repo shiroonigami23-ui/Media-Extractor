@@ -1,4 +1,15 @@
+// --- SUPREME CONTENT: AUTO-NAMER & INJECTORS ---
+
+const getSupremeTitle = () => {
+    const h1 = document.querySelector('h1')?.innerText;
+    const title = document.title;
+    return (h1 || title || "Media").replace(/[^a-z0-9]/gi, '_').substring(0, 50);
+};
+
 const initExtractor = () => {
+    const safeTitle = getSupremeTitle();
+    chrome.storage.local.set({ supreme_page_title: safeTitle });
+
     if (window.location.host.includes('youtube.com')) injectYTButtons();
     if (window.location.host.includes('instagram.com')) extractInstagram();
     injectFloatingSniffer();
@@ -14,7 +25,7 @@ const extractInstagram = () => {
             const mediaUrl = el.src || el.currentSrc;
             if (mediaUrl) {
                 chrome.storage.local.set({ lastSniffedMedia: mediaUrl });
-                alert("🔱 Supreme: Asset captured! Check Dashboard.");
+                alert("🔱 Supreme: Asset captured!");
             }
         };
     });
@@ -37,11 +48,11 @@ const injectFloatingSniffer = () => {
     const floater = document.createElement('div');
     floater.id = 'supreme-floater';
     floater.innerHTML = '📂';
-    floater.style = "position:fixed; bottom:20px; right:20px; z-index:9999; background:#ff3e00; color:white; width:50px; height:50px; border-radius:50%; display:flex; align-items:center; justify-content:center; cursor:pointer; font-size:24px;";
+    floater.style = "position:fixed; bottom:20px; right:20px; z-index:9999; background:#ff3e00; color:white; width:50px; height:50px; border-radius:50%; display:flex; align-items:center; justify-content:center; cursor:pointer; font-size:24px; box-shadow: 0 4px 15px rgba(0,0,0,0.5);";
     floater.onclick = () => {
         const video = document.querySelector('video');
         if (video?.src) window.open(video.src, '_blank');
-        else alert("No video found. Use Dashboard.");
+        else alert("No direct video tag found. Open dashboard for advanced streams.");
     };
     document.body.appendChild(floater);
 };

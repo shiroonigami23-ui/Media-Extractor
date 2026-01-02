@@ -8,27 +8,28 @@
     .tabs { display: flex; background: #1a1a1a; }
     .tab { flex: 1; padding: 10px; text-align: center; cursor: pointer; border-bottom: 2px solid transparent; font-size: 13px; color: #888; }
     .tab.active { color: #ff3e00; border-bottom: 2px solid #ff3e00; background: #222; }
-    .content { padding: 15px; max-height: 400px; overflow-y: auto; }
-    .media-item { background: #161616; border: 1px solid #333; border-radius: 8px; padding: 12px; margin-bottom: 10px; }
-    .media-title { font-size: 12px; margin-bottom: 8px; color: #ccc; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-    .btn-group { display: grid; grid-template-columns: repeat(3, 1fr); gap: 5px; }
-    button { background: #ff3e00; color: white; border: none; padding: 6px; border-radius: 4px; cursor: pointer; font-size: 11px; font-weight: bold; }
+    .content { padding: 15px; max-height: 450px; overflow-y: auto; }
+    .btn-group { display: grid; grid-template-columns: repeat(3, 1fr); gap: 5px; margin-top: 10px; }
+    button { background: #ff3e00; color: white; border: none; padding: 8px; border-radius: 4px; cursor: pointer; font-size: 11px; font-weight: bold; }
     button:hover { opacity: 0.8; }
-    button.secondary { background: #333; }
-    .gallery-stats { font-size: 11px; color: #888; margin-bottom: 10px; }
+    #preview-container { display:none; margin-top:15px; border-top: 1px solid #333; padding-top: 10px; }
+    #preview-grid { display:grid; grid-template-columns:repeat(4, 1fr); gap:5px; max-height:180px; overflow-y:auto; padding:5px; background:#111; }
+    .media-title { font-size: 13px; color: #ff3e00; font-weight: bold; margin-bottom: 10px; }
+    .hls-box { background:#333; padding:10px; font-size:11px; color:#ff3e00; margin-top:10px; cursor:pointer; border-radius:4px; text-align:center; }
   </style>
 </head>
 <body>
-  <div class="header">
-    <h2>🔱 SUPREME EXTRACTOR</h2>
-  </div>
+  <div class="header"><h2>🔱 SUPREME EXTRACTOR</h2></div>
   <div class="tabs">
     <div class="tab active" id="tab-video">VIDEO</div>
     <div class="tab" id="tab-audio">AUDIO</div>
     <div class="tab" id="tab-gallery">GALLERY</div>
   </div>
   <div class="content" id="main-content">
-    <div class="empty">Loading streams...</div>
+    <div class="empty">Scanning for media streams...</div>
+  </div>
+  <div id="preview-container">
+    <div id="preview-grid"></div>
   </div>
   <script src="popup.js"></script>
 </body>

@@ -1,14 +1,15 @@
 {
   "manifest_version": 3,
   "name": "Media Extractor Supreme",
-  "version": "1.1",
-  "description": "Extract 4K video and high-res audio from YT, Instagram, and more.",
+  "version": "1.4",
+  "description": "Extract 4K video, audio, and galleries with Context Menu & HLS sniffing.",
   "permissions": [
     "declarativeNetRequest",
     "storage",
     "activeTab",
     "scripting",
-    "downloads"
+    "downloads",
+    "contextMenus"
   ],
   "host_permissions": ["<all_urls>"],
   "background": {
@@ -19,7 +20,7 @@
   },
   "content_scripts": [
     {
-      "matches": ["*://*.youtube.com/*", "*://*.instagram.com/*", "*://*.vimeo.com/*"],
+      "matches": ["<all_urls>"],
       "js": ["content.js"],
       "run_at": "document_end"
     }
