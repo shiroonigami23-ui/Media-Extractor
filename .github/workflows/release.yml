@@ -1,0 +1,21 @@
+name: Supreme Release Builder
+on:
+  push:
+    tags:
+      - 'v*' 
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Zip Bundle
+        run: zip -r media-extractor-supreme.zip src/ icon/ LICENSE README.md CHANGELOG.md
+      - name: GitHub Release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: media-extractor-supreme.zip
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
