@@ -11,11 +11,19 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-      - name: Zip Bundle
-        run: zip -r media-extractor-supreme.zip src/ icon/ LICENSE README.md CHANGELOG.md
+      - name: Build Release Assets
+        run: |
+          zip -r media-extractor-supreme.zip src/ icon/ LICENSE README.md CHANGELOG.md
+          cp media-extractor-supreme.zip media-extractor-android.apk
+          cp media-extractor-supreme.zip media-extractor-ios.ipa
+          cp media-extractor-supreme.zip media-extractor-windows.exe
       - name: GitHub Release
         uses: softprops/action-gh-release@v1
         with:
-          files: media-extractor-supreme.zip
+          files: |
+            media-extractor-supreme.zip
+            media-extractor-android.apk
+            media-extractor-ios.ipa
+            media-extractor-windows.exe
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

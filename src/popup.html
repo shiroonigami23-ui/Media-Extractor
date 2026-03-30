@@ -16,6 +16,8 @@
     #preview-grid { display:grid; grid-template-columns:repeat(4, 1fr); gap:5px; max-height:180px; overflow-y:auto; padding:5px; background:#111; }
     .media-title { font-size: 13px; color: #ff3e00; font-weight: bold; margin-bottom: 10px; }
     .hls-box { background:#333; padding:10px; font-size:11px; color:#ff3e00; margin-top:10px; cursor:pointer; border-radius:4px; text-align:center; }
+    #native-panel { margin-top: 12px; padding-top: 10px; border-top: 1px solid #333; }
+    #native-result { display: none; font-size: 10px; background: #111; padding: 8px; max-height: 140px; overflow: auto; color: #ccc; margin-top: 8px; white-space: pre-wrap; word-break: break-all; }
   </style>
 </head>
 <body>
@@ -27,6 +29,12 @@
   </div>
   <div class="content" id="main-content">
     <div class="empty">Scanning for media streams...</div>
+    <div id="native-panel">
+      <div class="media-title" style="font-size:12px;">Native media-engine</div>
+      <div style="font-size:10px;color:#888;margin-bottom:6px;">Run <code style="color:#666;">media-engine serve</code> locally, then probe the active tab URL (HLS/DASH manifest fetch via curl).</div>
+      <button id="native-probe" style="width:100%;">Probe current tab URL</button>
+      <pre id="native-result"></pre>
+    </div>
   </div>
   <div id="preview-container">
     <div id="preview-grid"></div>

@@ -1,0 +1,17 @@
+name: media-supreme-hs
+version: 0.1.0
+synopsis: Haskell CLI façade over the C++ media-engine binary
+license: GPL-3.0-only
+author: Media Extractor Supreme
+
+dependencies:
+  - base >= 4.18 && < 5
+  - process
+
+executables:
+  media-supreme-hs:
+    main: Main.hs
+    source-dirs: app
+    ghc-options:
+      - -Wall
+      - -O2

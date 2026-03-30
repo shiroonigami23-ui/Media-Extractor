@@ -2,7 +2,8 @@ const saveOptions = () => {
   const settings = {
     enable_floater: document.getElementById('enable_floater').checked,
     enable_context: document.getElementById('enable_context').checked,
-    enable_autoname: document.getElementById('enable_autoname').checked
+    enable_autoname: document.getElementById('enable_autoname').checked,
+    engine_port: parseInt(document.getElementById('engine_port').value, 10) || 17474
   };
 
   chrome.storage.sync.set(settings, () => {
@@ -16,11 +17,13 @@ const restoreOptions = () => {
   chrome.storage.sync.get({
     enable_floater: true,
     enable_context: true,
-    enable_autoname: true
+    enable_autoname: true,
+    engine_port: 17474
   }, (items) => {
     document.getElementById('enable_floater').checked = items.enable_floater;
     document.getElementById('enable_context').checked = items.enable_context;
     document.getElementById('enable_autoname').checked = items.enable_autoname;
+    document.getElementById('engine_port').value = items.engine_port;
   });
 };
 

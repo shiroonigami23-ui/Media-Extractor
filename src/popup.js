@@ -74,6 +74,39 @@ document.addEventListener('DOMContentLoaded', async () => {
         document.getElementById('tab-audio').onclick = renderAudio;
         document.getElementById('tab-gallery').onclick = renderGallery;
         renderVideo();
+
+        const nativeBtn = document.getElementById('native-probe');
+        const nativePre = document.getElementById('native-result');
+        nativeBtn.onclick = async () => {
+            const sync = await chrome.storage.sync.get({ engine_port: 17474 });
+            const port = sync.engine_port;
+            const tabUrl = tab.url;
+            if (!tabUrl || !/^https?:/i.test(tabUrl)) {
+                nativePre.style.display = 'block';
+                nativePre.textContent = 'Active tab has no http(s) URL to probe.';
+                return;
+            }
+            nativeBtn.disabled = true;
+            nativePre.style.display = 'block';
+            nativePre.textContent = 'Probing…';
+            try {
+                const r = await fetch(`http://127.0.0.1:${port}/probe`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ url: tabUrl })
+                });
+                const text = await r.text();
+                try {
+                    nativePre.textContent = JSON.stringify(JSON.parse(text), null, 2);
+                } catch {
+                    nativePre.textContent = text;
+                }
+            } catch (e) {
+                nativePre.textContent =
+                    `Cannot reach media-engine on port ${port}. Start: media-engine serve ${port}\n` + String(e);
+            }
+            nativeBtn.disabled = false;
+        };
     });
 
     function setActiveTab(id) {

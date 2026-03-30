@@ -38,6 +38,14 @@
     <input type="checkbox" id="enable_autoname" checked>
   </div>
 
+  <div class="setting-row">
+    <div>
+      <div class="label">Native engine port</div>
+      <div class="desc">Local <code>media-engine serve</code> HTTP API (default 17474).</div>
+    </div>
+    <input type="number" id="engine_port" min="1024" max="65535" value="17474" style="width:80px;background:#222;color:#fff;border:1px solid #444;padding:6px;border-radius:4px;">
+  </div>
+
   <div id="status"></div>
   <script src="options.js"></script>
 </body>

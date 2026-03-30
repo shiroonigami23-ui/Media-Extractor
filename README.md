@@ -39,5 +39,39 @@
 
 ---
 
+### Native media engine (C++, optional Fortran, Haskell CLI)
+
+The browser UI can call a **local** HTTP API that fetches manifests with **system curl** (HTTPS) and parses **HLS** in C++. Optional **Fortran** supplies the stream-quality score; a small **Haskell** executable can shell out to the same binary.
+
+**Requirements:** [CMake](https://cmake.org/) 3.16+, a C++17 compiler, and **`curl`** on `PATH` (`curl.exe` on Windows). Optional: **gfortran** for `-DUSE_FORTRAN=ON`. Optional: [Stack](https://docs.haskellstack.org/) for `haskell/`.
+
+```text
+cd cpp
+cmake -B build -DCMAKE_BUILD_TYPE=Release
+cmake --build build
+# Optional Fortran metrics:
+# cmake -B build -DUSE_FORTRAN=ON
+# cmake --build build
+
+# CLI: JSON probe to stdout
+./build/media-engine probe "https://example.com/master.m3u8"
+
+# Local API for the extension (default port 17474)
+./build/media-engine serve
+```
+
+**Extension:** open the options page and set **Native engine port** if needed. Click **Probe current tab URL** in the popup while `media-engine serve` is running.
+
+**Haskell façade** (from repo root):
+
+```text
+cd haskell
+stack build
+stack exec media-supreme-hs -- probe "https://example.com/master.m3u8"
+# Set MEDIA_ENGINE=C:\path\to\media-engine.exe if the binary is not beside the default ../cpp/build/...
+```
+
+---
+
 ### ⚖️ License
 This project is licensed under the **GNU General Public License v3.0**. See the [LICENSE](./LICENSE) file for details.
